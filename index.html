@@ -224,150 +224,150 @@
         /* 单个风景图片项样式 */
         .scenery-item {
             position: relative; /* 相对定位 */
-            border-radius: 12px; /* 圆角 */
-            overflow: hidden; /* 隐藏溢出内容 */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* 阴影效果 */
-            aspect-ratio: 4/3; /* 宽高比4:3 */
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 平滑过渡效果 */
-            cursor: pointer; /* 鼠标指针变为手形 */
+            border-radius: 12px; <!-- 圆角 -->
+            overflow: hidden; <!-- 隐藏溢出内容 -->
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); <!-- 阴影效果 -->
+            aspect-ratio: 4/3; <!-- 宽高比4:3 -->
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); <!-- 平滑过渡效果 -->
+            cursor: pointer; <!-- 鼠标指针变为手形 -->
         }
         
         /* 风景图片项悬停效果 */
         .scenery-item:hover {
-            transform: translateY(-8px); /* 上移8px */
-            box-shadow: 0 12px 30px rgba(52, 152, 219, 0.3); /* 发光阴影 */
+            transform: translateY(-8px); <!-- 上移8px -->
+            box-shadow: 0 12px 30px rgba(52, 152, 219, 0.3); <!-- 发光阴影 -->
         }
         
         /* 风景图片样式 */
         .scenery-img {
-            width: 100%; /* 宽度100% */
-            height: 100%; /* 高度100% */
-            object-fit: cover; /* 图片填充方式，保持比例覆盖 */
-            transition: transform 0.6s ease; /* 变换过渡效果 */
+            width: 100%; <!-- 宽度100% -->
+            height: 100%; <!-- 高度100% -->
+            object-fit: cover; <!-- 图片填充方式，保持比例覆盖 -->
+            transition: transform 0.6s ease; <!-- 变换过渡效果 -->
         }
         
         /* 风景图片悬停放大效果 */
         .scenery-item:hover .scenery-img {
-            transform: scale(1.08); /* 放大108% */
+            transform: scale(1.08); <!-- 放大108% -->
         }
         
         /* 图片描述文字样式 */
         .scenery-caption {
-            position: absolute; /* 绝对定位 */
-            bottom: 0; /* 底部位置 */
-            left: 0; /* 左侧位置 */
-            width: 100%; /* 宽度100% */
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)); /* 半透明渐变背景 */
-            padding: 15px; /* 内边距 */
-            text-align: center; /* 文本居中 */
-            font-size: 1.1rem; /* 字体大小 */
-            color: white; /* 白色文字 */
-            opacity: 0; /* 初始透明度为0（隐藏） */
-            transition: opacity 0.4s ease; /* 透明度过渡效果 */
+            position: absolute; <!-- 绝对定位 -->
+            bottom: 0; <!-- 底部位置 -->
+            left: 0; <!-- 左侧位置 -->
+            width: 100%; <!-- 宽度100% -->
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)); <!-- 半透明渐变背景 -->
+            padding: 15px; <!-- 内边距 -->
+            text-align: center; <!-- 文本居中 -->
+            font-size: 1.1rem; <!-- 字体大小 -->
+            color: white; <!-- 白色文字 -->
+            opacity: 0; <!-- 初始透明度为0（隐藏） -->
+            transition: opacity 0.4s ease; <!-- 透明度过渡效果 -->
         }
         
         /* 悬停时显示描述文字 */
         .scenery-item:hover .scenery-caption {
-            opacity: 1; /* 完全不透明（显示） */
+            opacity: 1; <!-- 完全不透明（显示） -->
         }
         
         /* 响应式设计 - 中等屏幕（宽度小于1100px） */
         @media (max-width: 1100px) {
             .scenery-grid {
-                grid-template-columns: repeat(2, 1fr); /* 改为2列网格 */
+                grid-template-columns: repeat(2, 1fr); <!-- 改为2列网格 -->
             }
         }
         
         /* 响应式设计 - 平板（宽度小于768px） */
         @media (max-width: 768px) {
             .header {
-                margin: 60px 0 30px; /* 调整标题区域外边距 */
+                margin: 60px 0 30px; <!-- 调整标题区域外边距 -->
             }
             
             .header h1 {
-                font-size: 2.5rem; /* 减小主标题字体 */
+                font-size: 2.5rem; <!-- 减小主标题字体 -->
             }
             
             .header p {
-                font-size: 1.05rem; /* 减小副标题字体 */
+                font-size: 1.05rem; <!-- 减小副标题字体 -->
             }
             
             .province-btn {
-                width: 60px; /* 减小按钮宽度 */
-                height: 60px; /* 减小按钮高度 */
-                margin: 0 8px; /* 调整外边距 */
+                width: 60px; <!-- 减小按钮宽度 -->
+                height: 60px; <!-- 减小按钮高度 -->
+                margin: 0 8px; <!-- 调整外边距 -->
             }
             
             .province-img {
-                width: 45px; /* 减小图片宽度 */
-                height: 45px; /* 减小图片高度 */
+                width: 45px; <!-- 减小图片宽度 -->
+                height: 45px; <!-- 减小图片高度 -->
             }
             
             .province-title {
-                font-size: 2.5rem; /* 减小省份标题字体 */
+                font-size: 2.5rem; <!-- 减小省份标题字体 -->
             }
             
             .province-desc {
-                font-size: 1.1rem; /* 减小描述文本字体 */
+                font-size: 1.1rem; <!-- 减小描述文本字体 -->
             }
             
             .scenery-grid {
-                grid-template-columns: repeat(2, 1fr); /* 保持2列布局 */
-                gap: 15px; /* 减小网格间隙 */
+                grid-template-columns: repeat(2, 1fr); <!-- 保持2列布局 -->
+                gap: 15px; <!-- 减小网格间隙 -->
             }
             
             .province-info {
-                padding: 30px 20px; /* 调整内边距 */
+                padding: 30px 20px; <!-- 调整内边距 -->
             }
         }
         
         /* 响应式设计 - 手机（宽度小于576px） */
         @media (max-width: 576px) {
             body {
-                padding-top: 90px; /* 调整顶部内边距 */
+                padding-top: 90px; <!-- 调整顶部内边距 -->
             }
             
             .header {
-                margin: 40px 0; /* 调整标题区域外边距 */
+                margin: 40px 0; <!-- 调整标题区域外边距 -->
             }
             
             .header h1 {
-                font-size: 2.2rem; /* 进一步减小主标题字体 */
+                font-size: 2.2rem; <!-- 进一步减小主标题字体 -->
             }
             
             .header p {
-                font-size: 1.5rem; /* 进一步减小副标题字体 */
+                font-size: 1.5rem; <!-- 进一步减小副标题字体 -->
             }
             
             .province-btn {
-                width: 55px; /* 进一步减小按钮宽度 */
-                height: 55px; /* 进一步减小按钮高度 */
-                margin: 0 6px; /* 调整外边距 */
+                width: 55px; <!-- 进一步减小按钮宽度 -->
+                height: 55px; <!-- 进一步减小按钮高度 -->
+                margin: 0 6px; <!-- 调整外边距 -->
             }
             
             .province-img {
-                width: 40px; /* 进一步减小图片宽度 */
-                height: 40px; /* 进一步减小图片高度 */
+                width: 40px; <!-- 进一步减小图片宽度 -->
+                height: 40px; <!-- 进一步减小图片高度 -->
             }
             
             .province-title {
-                font-size: 2.2rem; /* 进一步减小省份标题字体 */
+                font-size: 2.2rem; <!-- 进一步减小省份标题字体 -->
             }
             
             .scenery-grid {
-                grid-template-columns: 1fr; /* 改为1列布局 */
+                grid-template-columns: 1fr; <!-- 改为1列布局 -->
             }
         }
         
         /* 页脚样式 */
         .footer {
-            text-align: center; /* 文本居中 */
-            margin-top: 70px; /* 顶部外边距 */
-            padding: 30px; /* 内边距 */
-            color: #5d6d7e; /* 灰色文字 */
-            font-size: 1rem; /* 字体大小 */
-            border-top: 1px solid #d6eaf8; /* 顶部浅蓝色边框 */
-            background: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+            text-align: center; <!-- 文本居中 -->
+            margin-top: 70px; <!-- 顶部外边距 -->
+            padding: 30px; <!-- 内边距 -->
+            color: #5d6d7e; <!-- 灰色文字 -->
+            font-size: 1rem; <!-- 字体大小 -->
+            border-top: 1px solid #d6eaf8; <!-- 顶部浅蓝色边框 -->
+            background: rgba(255, 255, 255, 0.8); <!-- 半透明白色背景 -->
         }
     </style>
 </head>
@@ -421,17 +421,17 @@
                 name: '北京市', // 省份名称
                 desc: '北京，中国的首都，一座拥有三千年历史的文化名城。作为政治中心、文化中心、国际交往中心和科技创新中心，北京融合了古老与现代的独特魅力。', // 省份描述
                 images: [ // 风景图片数组
-                    '/rjxmfls_trip_map/assets/images/beijing/1.jpg', // 北京市风景图1
-                    '/rjxmfls_trip_map/assets/images/beijing/2.jpg', // 北京市风景图2
-                    '/rjxmfls_trip_map/assets/images/beijing/3.jpg', // 北京市风景图3
-                    '/rjxmfls_trip_map/assets/images/beijing/4.jpg', // 北京市风景图4
-                    '/rjxmfls_trip_map/assets/images/beijing/5.jpg', // 北京市风景图5
-                    '/rjxmfls_trip_map/assets/images/beijing/6.jpg', // 北京市风景图6
-                    '/rjxmfls_trip_map/assets/images/beijing/7.jpg', // 北京市风景图7
-                    '/rjxmfls_trip_map/assets/images/beijing/8.jpg', // 北京市风景图8
-                    '/rjxmfls_trip_map/assets/images/beijing/9.jpg'  // 北京市风景图9
+                    '/HamsterEatSeeds.github.io/assets/images/beijing/1.jpg', // 北京市风景图1
+                    '/HamsterEatSeeds.github.io/assets/images/beijing/2.jpg', // 北京市风景图2
+                    '/HamsterEatSeeds.github.io/assets/images/beijing/3.jpg', // 北京市风景图3
+                    '/HamsterEatSeeds.github.io/assets/images/beijing/4.jpg', // 北京市风景图4
+                    '/HamsterEatSeeds.github.io/assets/images/beijing/5.jpg', // 北京市风景图5
+                    '/HamsterEatSeeds.github.io/assets/images/beijing/6.jpg', // 北京市风景图6
+                    '/HamsterEatSeeds.github.io/assets/images/beijing/7.jpg', // 北京市风景图7
+                    '/HamsterEatSeeds.github.io/assets/images/beijing/8.jpg', // 北京市风景图8
+                    '/HamsterEatSeeds.github.io/assets/images/beijing/9.jpg'  // 北京市风景图9
                 ],
-                thumb: '/rjxmfls_trip_map/assets/images/beijing/thumb.jpg' // 北京市缩略图
+                thumb: '/HamsterEatSeeds.github.io/assets/images/beijing/thumb.jpg' // 北京市缩略图
             },
             // 其他省份数据（结构相同）
             { 
@@ -439,68 +439,68 @@
                 name: '上海市', // 省份名称
                 desc: '上海，中国的经济、金融、贸易和航运中心，被誉为"东方明珠"。作为国际化大都市，上海融合了东西方文化。', // 省份描述
                 images: [ // 风景图片数组
-                    '/rjxmfls_trip_map/assets/images/shanghai/1.jpg', // 上海市风景图1
-                    '/rjxmfls_trip_map/assets/images/shanghai/2.jpg', // 上海市风景图2
-                    '/rjxmfls_trip_map/assets/images/shanghai/3.jpg', // 上海市风景图3
-                    '/rjxmfls_trip_map/assets/images/shanghai/4.jpg', // 上海市风景图4
-                    '/rjxmfls_trip_map/assets/images/shanghai/5.jpg', // 上海市风景图5
-                    '/rjxmfls_trip_map/assets/images/shanghai/6.jpg', // 上海市风景图6
-                    '/rjxmfls_trip_map/assets/images/shanghai/7.jpg', // 上海市风景图7
-                    '/rjxmfls_trip_map/assets/images/shanghai/8.jpg', // 上海市风景图8
-                    '/rjxmfls_trip_map/assets/images/shanghai/9.jpg'  // 上海市风景图9
+                    '/HamsterEatSeeds.github.io/assets/images/shanghai/1.jpg', // 上海市风景图1
+                    '/HamsterEatSeeds.github.io/assets/images/shanghai/2.jpg', // 上海市风景图2
+                    '/HamsterEatSeeds.github.io/assets/images/shanghai/3.jpg', // 上海市风景图3
+                    '/HamsterEatSeeds.github.io/assets/images/shanghai/4.jpg', // 上海市风景图4
+                    '/HamsterEatSeeds.github.io/assets/images/shanghai/5.jpg', // 上海市风景图5
+                    '/HamsterEatSeeds.github.io/assets/images/shanghai/6.jpg', // 上海市风景图6
+                    '/HamsterEatSeeds.github.io/assets/images/shanghai/7.jpg', // 上海市风景图7
+                    '/HamsterEatSeeds.github.io/assets/images/shanghai/8.jpg', // 上海市风景图8
+                    '/HamsterEatSeeds.github.io/assets/images/shanghai/9.jpg'  // 上海市风景图9
                 ],
-                thumb: '/rjxmfls_trip_map/assets/images/shanghai/thumb.jpg' // 上海市缩略图
+                thumb: '/HamsterEatSeeds.github.io/assets/images/shanghai/thumb.jpg' // 上海市缩略图
             },
             { 
                 id: 'guangdong', // 省份唯一标识
                 name: '广东省', // 省份名称
                 desc: '广东，位于中国南端，是中国经济最发达的省份之一，也是改革开放的前沿阵地。广东以岭南文化著称。', // 省份描述
                 images: [ // 风景图片数组
-                    '/rjxmfls_trip_map/assets/images/guangdong/1.jpg', // 广东省风景图1
-                    '/rjxmfls_trip_map/assets/images/guangdong/2.jpg', // 广东省风景图2
-                    '/rjxmfls_trip_map/assets/images/guangdong/3.jpg', // 广东省风景图3
-                    '/rjxmfls_trip_map/assets/images/guangdong/4.jpg', // 广东省风景图4
-                    '/rjxmfls_trip_map/assets/images/guangdong/5.jpg', // 广东省风景图5
-                    '/rjxmfls_trip_map/assets/images/guangdong/6.jpg', // 广东省风景图6
-                    '/rjxmfls_trip_map/assets/images/guangdong/7.jpg', // 广东省风景图7
-                    '/rjxmfls_trip_map/assets/images/guangdong/8.jpg', // 广东省风景图8
-                    '/rjxmfls_trip_map/assets/images/guangdong/9.jpg'  // 广东省风景图9
+                    '/HamsterEatSeeds.github.io/assets/images/guangdong/1.jpg', // 广东省风景图1
+                    '/HamsterEatSeeds.github.io/assets/images/guangdong/2.jpg', // 广东省风景图2
+                    '/HamsterEatSeeds.github.io/assets/images/guangdong/3.jpg', // 广东省风景图3
+                    '/HamsterEatSeeds.github.io/assets/images/guangdong/4.jpg', // 广东省风景图4
+                    '/HamsterEatSeeds.github.io/assets/images/guangdong/5.jpg', // 广东省风景图5
+                    '/HamsterEatSeeds.github.io/assets/images/guangdong/6.jpg', // 广东省风景图6
+                    '/HamsterEatSeeds.github.io/assets/images/guangdong/7.jpg', // 广东省风景图7
+                    '/HamsterEatSeeds.github.io/assets/images/guangdong/8.jpg', // 广东省风景图8
+                    '/HamsterEatSeeds.github.io/assets/images/guangdong/9.jpg'  // 广东省风景图9
                 ],
-                thumb: '/rjxmfls_trip_map/assets/images/guangdong/thumb.jpg' // 广东省缩略图
+                thumb: '/HamsterEatSeeds.github.io/assets/images/guangdong/thumb.jpg' // 广东省缩略图
             },
             { 
                 id: 'sichuan', // 省份唯一标识
                 name: '四川省', // 省份名称
                 desc: '四川，位于中国西南腹地，素有"天府之国"的美誉。这里是大熊猫的故乡，也是川菜的发源地。', // 省份描述
                 images: [ // 风景图片数组
-                    '/rjxmfls_trip_map/assets/images/sichuan/1.jpg', // 四川省风景图1
-                    '/rjxmfls_trip_map/assets/images/sichuan/2.jpg', // 四川省风景图2
-                    '/rjxmfls_trip_map/assets/images/sichuan/3.jpg', // 四川省风景图3
-                    '/rjxmfls_trip_map/assets/images/sichuan/4.jpg', // 四川省风景图4
-                    '/rjxmfls_trip_map/assets/images/sichuan/5.jpg', // 四川省风景图5
-                    '/rjxmfls_trip_map/assets/images/sichuan/6.jpg', // 四川省风景图6
-                    '/rjxmfls_trip_map/assets/images/sichuan/7.jpg', // 四川省风景图7
-                    '/rjxmfls_trip_map/assets/images/sichuan/8.jpg', // 四川省风景图8
-                    '/rjxmfls_trip_map/assets/images/sichuan/9.jpg'  // 四川省风景图9
+                    '/HamsterEatSeeds.github.io/assets/images/sichuan/1.jpg', // 四川省风景图1
+                    '/HamsterEatSeeds.github.io/assets/images/sichuan/2.jpg', // 四川省风景图2
+                    '/HamsterEatSeeds.github.io/assets/images/sichuan/3.jpg', // 四川省风景图3
+                    '/HamsterEatSeeds.github.io/assets/images/sichuan/4.jpg', // 四川省风景图4
+                    '/HamsterEatSeeds.github.io/assets/images/sichuan/5.jpg', // 四川省风景图5
+                    '/HamsterEatSeeds.github.io/assets/images/sichuan/6.jpg', // 四川省风景图6
+                    '/HamsterEatSeeds.github.io/assets/images/sichuan/7.jpg', // 四川省风景图7
+                    '/HamsterEatSeeds.github.io/assets/images/sichuan/8.jpg', // 四川省风景图8
+                    '/HamsterEatSeeds.github.io/assets/images/sichuan/9.jpg'  // 四川省风景图9
                 ],
-                thumb: '/rjxmfls_trip_map/assets/images/sichuan/thumb.jpg' // 四川省缩略图
+                thumb: '/HamsterEatSeeds.github.io/assets/images/sichuan/thumb.jpg' // 四川省缩略图
             },
             { 
                 id: 'xizang', // 省份唯一标识
                 name: '西藏自治区', // 省份名称
                 desc: '西藏，位于青藏高原，被誉为"世界屋脊"。这里有独特的藏传佛教文化和壮丽的自然风光。', // 省份描述
                 images: [ // 风景图片数组
-                    '/rjxmfls_trip_map/assets/images/xizang/1.jpg', // 西藏风景图1
-                    '/rjxmfls_trip_map/assets/images/xizang/2.jpg', // 西藏风景图2
-                    '/rjxmfls_trip_map/assets/images/xizang/3.jpg', // 西藏风景图3
-                    '/rjxmfls_trip_map/assets/images/xizang/4.jpg', // 西藏风景图4
-                    '/rjxmfls_trip_map/assets/images/xizang/5.jpg', // 西藏风景图5
-                    '/rjxmfls_trip_map/assets/images/xizang/6.jpg', // 西藏风景图6
-                    '/rjxmfls_trip_map/assets/images/xizang/7.jpg', // 西藏风景图7
-                    '/rjxmfls_trip_map/assets/images/xizang/8.jpg', // 西藏风景图8
-                    '/rjxmfls_trip_map/assets/images/xizang/9.jpg'  // 西藏风景图9
+                    '/HamsterEatSeeds.github.io/assets/images/xizang/1.jpg', // 西藏风景图1
+                    '/HamsterEatSeeds.github.io/assets/images/xizang/2.jpg', // 西藏风景图2
+                    '/HamsterEatSeeds.github.io/assets/images/xizang/3.jpg', // 西藏风景图3
+                    '/HamsterEatSeeds.github.io/assets/images/xizang/4.jpg', // 西藏风景图4
+                    '/HamsterEatSeeds.github.io/assets/images/xizang/5.jpg', // 西藏风景图5
+                    '/HamsterEatSeeds.github.io/assets/images/xizang/6.jpg', // 西藏风景图6
+                    '/HamsterEatSeeds.github.io/assets/images/xizang/7.jpg', // 西藏风景图7
+                    '/HamsterEatSeeds.github.io/assets/images/xizang/8.jpg', // 西藏风景图8
+                    '/HamsterEatSeeds.github.io/assets/images/xizang/9.jpg'  // 西藏风景图9
                 ],
-                thumb: '/rjxmfls_trip_map/assets/images/xizang/thumb.jpg' // 西藏自治区缩略图
+                thumb: '/HamsterEatSeeds.github.io/assets/images/xizang/thumb.jpg' // 西藏自治区缩略图
             }
         ];
         

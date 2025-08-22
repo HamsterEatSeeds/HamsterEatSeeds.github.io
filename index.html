@@ -1,0 +1,622 @@
+<!DOCTYPE html> <!-- 声明文档类型为HTML5 -->
+<html lang="zh-CN"> <!-- HTML文档开始，设置语言为简体中文 -->
+<head> <!-- 文档头部，包含元数据和页面配置 -->
+    <meta charset="UTF-8"> <!-- 设置字符编码为UTF-8，确保中文正确显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 视口设置，使页面在移动设备上自适应 -->
+    <title>中国省份风景展示平台</title> <!-- 页面标题，显示在浏览器标签页上 -->
+    
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style> /* 开始CSS样式部分 */
+        /* 全局样式重置 - 清除所有元素的默认边距和内边距 */
+        * {
+            margin: 0; /* 清除外边距 */
+            padding: 0; /* 清除内边距 */
+            box-sizing: border-box; /* 设置盒模型为border-box，使宽度包含边框和内边距 */
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; /* 设置默认字体 */
+        }
+        
+        /* 页面主体样式 */
+        body {
+            background: linear-gradient(to bottom, #ffffff, #e6f7ff, #f0f9ff); /* 白色到浅蓝色的渐变背景 */
+            color: #333; /* 设置默认文字颜色为深灰色 */
+            min-height: 100vh; /* 设置最小高度为视口高度 */
+            padding-top: 100px; /* 顶部内边距，为顶部导航栏预留空间 */
+            overflow-x: hidden; /* 隐藏水平滚动条 */
+        }
+        
+        /* 标题区域样式 */
+        .header {
+            text-align: center; /* 文本居中对齐 */
+            margin: 80px 0 50px 0; /* 上边距80px，下边距50px */
+            padding: 0 20px; /* 左右内边距20px */
+        }
+        
+        /* 主标题样式 */
+        .header h1 {
+            font-size: 3.2rem; /* 大字体大小 */
+            margin-bottom: 15px; /* 底部外边距 */
+            color: #1a5276; /* 深蓝色文字 */
+            font-weight: 700; /* 加粗字体 */
+            letter-spacing: 1px; /* 字母间距 */
+            position: relative; /* 相对定位，为伪元素定位做准备 */
+            display: inline-block; /* 行内块元素，使伪元素能正确显示 */
+        }
+        
+        /* 主标题下方的装饰线 */
+        .header h1::after {
+            content: ""; /* 伪元素内容为空 */
+            position: absolute; /* 绝对定位 */
+            bottom: -10px; /* 距离底部-10px（在标题下方） */
+            left: 50%; /* 左侧50%位置 */
+            transform: translateX(-50%); /* 水平居中 */
+            width: 80px; /* 宽度80px */
+            height: 4px; /* 高度4px */
+            background: linear-gradient(to right, #3498db, #1a5276); /* 蓝色渐变背景 */
+            border-radius: 2px; /* 圆角 */
+        }
+        
+        /* 副标题样式 */
+        .header p {
+            font-size: 1.8rem; /* 中等字体大小 */
+            color: #2874a6; /* 蓝色文字 */
+            max-width: 700px; /* 最大宽度限制 */
+            margin: 25px auto 0; /* 上边距25px，水平居中 */
+            line-height: 1.7; /* 行高为1.7倍 */
+            font-weight: 400; /* 较细的字体 */
+        }
+        
+        /* 顶部选择栏容器 */
+        .selector-container {
+            position: fixed; /* 固定定位，使导航栏始终在顶部 */
+            top: 0; /* 顶部位置为0 */
+            left: 0; /* 左侧位置为0 */
+            width: 100%; /* 宽度100% */
+            background: rgba(255, 255, 255, 0.98); /* 半透明白色背景 */
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08); /* 添加轻微阴影 */
+            z-index: 1000; /* 设置高z-index，确保在最上层 */
+            padding: 15px 0; /* 上下内边距15px */
+            border-bottom: 1px solid #d6eaf8; /* 底部浅蓝色边框 */
+            display: flex; /* 使用弹性布局 */
+            justify-content: center; /* 内容水平居中 */
+        }
+        
+        /* 省份选择栏样式 */
+        .province-selector {
+            display: flex; /* 使用弹性布局 */
+            overflow-x: auto; /* 水平溢出时显示滚动条 */
+            scrollbar-width: thin; /* 设置滚动条宽度（Firefox） */
+            scrollbar-color: #3498db #eaf2f8; /* 设置滚动条颜色（Firefox） */
+            padding: 0 15px; /* 左右内边距15px */
+            height: 85px; /* 固定高度 */
+            align-items: center; /* 垂直居中 */
+            max-width: 95%; /* 最大宽度限制 */
+            scroll-behavior: smooth; /* 平滑滚动效果 */
+        }
+        
+        /* Webkit浏览器滚动条样式 */
+        .province-selector::-webkit-scrollbar {
+            height: 6px; /* 滚动条高度 */
+        }
+        
+        .province-selector::-webkit-scrollbar-track {
+            background: #eaf2f8; /* 滚动条轨道背景色 */
+            border-radius: 4px; /* 圆角 */
+        }
+        
+        .province-selector::-webkit-scrollbar-thumb {
+            background: #3498db; /* 滚动条滑块颜色 */
+            border-radius: 4px; /* 圆角 */
+        }
+        
+        /* 省份按钮样式 */
+        .province-btn {
+            flex: 0 0 auto; /* 不伸缩、不收缩、自动基准 */
+            margin: 0 10px; /* 左右外边距10px */
+            border: 2px solid #aed6f1; /* 浅蓝色边框 */
+            border-radius: 10px; /* 圆角 */
+            background: rgba(236, 244, 253, 0.7); /* 半透明背景 */
+            cursor: pointer; /* 鼠标指针变为手形 */
+            transition: all 0.3s ease; /* 所有属性过渡效果 */
+            position: relative; /* 相对定位 */
+            overflow: hidden; /* 隐藏溢出内容 */
+            width: 70px; /* 宽度 */
+            height: 70px; /* 高度 */
+            display: flex; /* 弹性布局 */
+            align-items: center; /* 垂直居中 */
+            justify-content: center; /* 水平居中 */
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08); /* 轻微阴影 */
+        }
+        
+        /* 省份按钮悬停效果 */
+        .province-btn:hover {
+            background: rgba(174, 214, 241, 0.4); /* 背景变深 */
+            transform: translateY(-5px); /* 上移5px */
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.25); /* 阴影变化 */
+        }
+        
+        /* 当前选中省份按钮样式 */
+        .province-btn.active {
+            background: linear-gradient(135deg, #3498db, #85c1e9); /* 蓝色渐变背景 */
+            border-color: transparent; /* 透明边框 */
+            box-shadow: 0 0 25px rgba(52, 152, 219, 0.4); /* 发光效果 */
+            animation: pulse 1.5s infinite; /* 脉冲动画 */
+            transform: scale(1.12); /* 放大效果 */
+        }
+        
+        /* 脉冲动画关键帧 */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); } /* 初始状态 */
+            70% { box-shadow: 0 0 0 12px rgba(52, 152, 219, 0); } /* 中间状态 */
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); } /* 结束状态 */
+        }
+        
+        /* 省份图片样式 */
+        .province-img {
+            width: 75px; /* 宽度 */
+            height: 75px; /* 高度 */
+            object-fit: cover; /* 图片填充方式，保持比例覆盖 */
+            border-radius: 6px; /* 圆角 */
+            transition: all 0.3s ease; /* 过渡效果 */
+        }
+        
+        /* 内容区域样式 */
+        .content {
+            max-width: 1300px; /* 最大宽度限制 */
+            margin: 0 auto; /* 水平居中 */
+            padding: 20px; /* 内边距 */
+        }
+        
+        /* 省份信息容器样式 */
+        .province-info {
+            background: rgba(255, 255, 255, 0.92); /* 半透明白色背景 */
+            border-radius: 18px; /* 大圆角 */
+            padding: 40px; /* 内边距 */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06); /* 柔和阴影 */
+            border: 1px solid #d6eaf8; /* 浅蓝色边框 */
+            backdrop-filter: blur(8px); /* 背景模糊效果 */
+            text-align: center; /* 文本居中 */
+        }
+        
+        /* 省份标题样式 */
+        .province-title {
+            font-size: 3.5rem; /* 大字体 */
+            margin-bottom: 30px; /* 底部外边距 */
+            color: #1a5276; /* 深蓝色文字 */
+            position: relative; /* 相对定位 */
+            display: inline-block; /* 行内块元素 */
+            font-weight: 700; /* 加粗字体 */
+        }
+        
+        /* 省份标题下方的装饰线 */
+        .province-title::after {
+            content: ""; /* 伪元素内容为空 */
+            position: absolute; /* 绝对定位 */
+            bottom: -15px; /* 距离底部-15px（在标题下方） */
+            left: 50%; /* 左侧50%位置 */
+            transform: translateX(-50%); /* 水平居中 */
+            width: 70%; /* 宽度为70% */
+            height: 3px; /* 高度3px */
+            background: linear-gradient(to right, transparent, #3498db, transparent); /* 渐变线条 */
+            border-radius: 2px; /* 圆角 */
+        }
+        
+        /* 省份描述文本样式 */
+        .province-desc {
+            font-size: 1.25rem; /* 中等字体大小 */
+            line-height: 1.8; /* 行高为1.8倍 */
+            max-width: 900px; /* 最大宽度限制 */
+            margin: 0 auto 40px; /* 上下外边距0，底部外边距40px，水平居中 */
+            color: #2c3e50; /* 深灰色文字 */
+            padding: 0 20px; /* 左右内边距 */
+            font-weight: 300; /* 较细的字体 */
+        }
+        
+        /* 风景图片网格容器 */
+        .scenery-grid {
+            display: grid; /* 使用网格布局 */
+            grid-template-columns: repeat(3, 1fr); /* 3列网格 */
+            gap: 20px; /* 网格间隙 */
+            margin-top: 40px; /* 顶部外边距 */
+        }
+        
+        /* 单个风景图片项样式 */
+        .scenery-item {
+            position: relative; /* 相对定位 */
+            border-radius: 12px; /* 圆角 */
+            overflow: hidden; /* 隐藏溢出内容 */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+            aspect-ratio: 4/3; /* 宽高比4:3 */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 平滑过渡效果 */
+            cursor: pointer; /* 鼠标指针变为手形 */
+        }
+        
+        /* 风景图片项悬停效果 */
+        .scenery-item:hover {
+            transform: translateY(-8px); /* 上移8px */
+            box-shadow: 0 12px 30px rgba(52, 152, 219, 0.3); /* 发光阴影 */
+        }
+        
+        /* 风景图片样式 */
+        .scenery-img {
+            width: 100%; /* 宽度100% */
+            height: 100%; /* 高度100% */
+            object-fit: cover; /* 图片填充方式，保持比例覆盖 */
+            transition: transform 0.6s ease; /* 变换过渡效果 */
+        }
+        
+        /* 风景图片悬停放大效果 */
+        .scenery-item:hover .scenery-img {
+            transform: scale(1.08); /* 放大108% */
+        }
+        
+        /* 图片描述文字样式 */
+        .scenery-caption {
+            position: absolute; /* 绝对定位 */
+            bottom: 0; /* 底部位置 */
+            left: 0; /* 左侧位置 */
+            width: 100%; /* 宽度100% */
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)); /* 半透明渐变背景 */
+            padding: 15px; /* 内边距 */
+            text-align: center; /* 文本居中 */
+            font-size: 1.1rem; /* 字体大小 */
+            color: white; /* 白色文字 */
+            opacity: 0; /* 初始透明度为0（隐藏） */
+            transition: opacity 0.4s ease; /* 透明度过渡效果 */
+        }
+        
+        /* 悬停时显示描述文字 */
+        .scenery-item:hover .scenery-caption {
+            opacity: 1; /* 完全不透明（显示） */
+        }
+        
+        /* 响应式设计 - 中等屏幕（宽度小于1100px） */
+        @media (max-width: 1100px) {
+            .scenery-grid {
+                grid-template-columns: repeat(2, 1fr); /* 改为2列网格 */
+            }
+        }
+        
+        /* 响应式设计 - 平板（宽度小于768px） */
+        @media (max-width: 768px) {
+            .header {
+                margin: 60px 0 30px; /* 调整标题区域外边距 */
+            }
+            
+            .header h1 {
+                font-size: 2.5rem; /* 减小主标题字体 */
+            }
+            
+            .header p {
+                font-size: 1.05rem; /* 减小副标题字体 */
+            }
+            
+            .province-btn {
+                width: 60px; /* 减小按钮宽度 */
+                height: 60px; /* 减小按钮高度 */
+                margin: 0 8px; /* 调整外边距 */
+            }
+            
+            .province-img {
+                width: 45px; /* 减小图片宽度 */
+                height: 45px; /* 减小图片高度 */
+            }
+            
+            .province-title {
+                font-size: 2.5rem; /* 减小省份标题字体 */
+            }
+            
+            .province-desc {
+                font-size: 1.1rem; /* 减小描述文本字体 */
+            }
+            
+            .scenery-grid {
+                grid-template-columns: repeat(2, 1fr); /* 保持2列布局 */
+                gap: 15px; /* 减小网格间隙 */
+            }
+            
+            .province-info {
+                padding: 30px 20px; /* 调整内边距 */
+            }
+        }
+        
+        /* 响应式设计 - 手机（宽度小于576px） */
+        @media (max-width: 576px) {
+            body {
+                padding-top: 90px; /* 调整顶部内边距 */
+            }
+            
+            .header {
+                margin: 40px 0; /* 调整标题区域外边距 */
+            }
+            
+            .header h1 {
+                font-size: 2.2rem; /* 进一步减小主标题字体 */
+            }
+            
+            .header p {
+                font-size: 1.5rem; /* 进一步减小副标题字体 */
+            }
+            
+            .province-btn {
+                width: 55px; /* 进一步减小按钮宽度 */
+                height: 55px; /* 进一步减小按钮高度 */
+                margin: 0 6px; /* 调整外边距 */
+            }
+            
+            .province-img {
+                width: 40px; /* 进一步减小图片宽度 */
+                height: 40px; /* 进一步减小图片高度 */
+            }
+            
+            .province-title {
+                font-size: 2.2rem; /* 进一步减小省份标题字体 */
+            }
+            
+            .scenery-grid {
+                grid-template-columns: 1fr; /* 改为1列布局 */
+            }
+        }
+        
+        /* 页脚样式 */
+        .footer {
+            text-align: center; /* 文本居中 */
+            margin-top: 70px; /* 顶部外边距 */
+            padding: 30px; /* 内边距 */
+            color: #5d6d7e; /* 灰色文字 */
+            font-size: 1rem; /* 字体大小 */
+            border-top: 1px solid #d6eaf8; /* 顶部浅蓝色边框 */
+            background: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 顶部选择栏容器 -->
+    <div class="selector-container">
+        <!-- 省份选择栏 -->
+        <div class="province-selector" id="provinceSelector">
+            <!-- 省份按钮将由JavaScript动态生成 -->
+        </div>
+    </div>
+    
+    <!-- 页面标题区域 -->
+    <div class="header">
+        <!-- 主标题，包含山脉图标 -->
+        <h1><i class="fas fa-mountain"></i> 中国省份风景展示平台 </h1>
+        <!-- 副标题，说明制作单位 -->
+        <p>外国语学校瑞景分校学生会 || 制作</p>
+    </div>
+    
+    <!-- 主要内容区域 -->
+    <div class="content">
+        <!-- 省份信息容器 -->
+        <div class="province-info">
+            <!-- 当前选中的省份名称 -->
+            <div class="province-title" id="provinceName">北京市</div>
+            
+            <!-- 省份描述 -->
+            <div class="province-desc" id="provinceDesc">
+                北京，中国的首都，一座拥有三千年历史的文化名城。作为政治中心、文化中心、国际交往中心和科技创新中心，北京融合了古老与现代的独特魅力。
+            </div>
+            
+            <!-- 风景图片网格容器 -->
+            <div class="scenery-grid" id="sceneryGrid">
+                <!-- 风景图片将由JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <div class="footer">
+        <p>© 2025 外国语学校瑞景分校</p>
+    </div>
+    
+    <script>
+        // 省份数据（包含风景图片）
+        const provinces = [
+            { 
+                id: 'beijing', // 省份唯一标识
+                name: '北京市', // 省份名称
+                desc: '北京，中国的首都，一座拥有三千年历史的文化名城。作为政治中心、文化中心、国际交往中心和科技创新中心，北京融合了古老与现代的独特魅力。', // 省份描述
+                images: [ // 风景图片数组
+                    '/rjxmfls_trip_map/assets/images/beijing/1.jpg', // 北京市风景图1
+                    '/rjxmfls_trip_map/assets/images/beijing/2.jpg', // 北京市风景图2
+                    '/rjxmfls_trip_map/assets/images/beijing/3.jpg', // 北京市风景图3
+                    '/rjxmfls_trip_map/assets/images/beijing/4.jpg', // 北京市风景图4
+                    '/rjxmfls_trip_map/assets/images/beijing/5.jpg', // 北京市风景图5
+                    '/rjxmfls_trip_map/assets/images/beijing/6.jpg', // 北京市风景图6
+                    '/rjxmfls_trip_map/assets/images/beijing/7.jpg', // 北京市风景图7
+                    '/rjxmfls_trip_map/assets/images/beijing/8.jpg', // 北京市风景图8
+                    '/rjxmfls_trip_map/assets/images/beijing/9.jpg'  // 北京市风景图9
+                ],
+                thumb: '/rjxmfls_trip_map/assets/images/beijing/thumb.jpg' // 北京市缩略图
+            },
+            // 其他省份数据（结构相同）
+            { 
+                id: 'shanghai', // 省份唯一标识
+                name: '上海市', // 省份名称
+                desc: '上海，中国的经济、金融、贸易和航运中心，被誉为"东方明珠"。作为国际化大都市，上海融合了东西方文化。', // 省份描述
+                images: [ // 风景图片数组
+                    '/rjxmfls_trip_map/assets/images/shanghai/1.jpg', // 上海市风景图1
+                    '/rjxmfls_trip_map/assets/images/shanghai/2.jpg', // 上海市风景图2
+                    '/rjxmfls_trip_map/assets/images/shanghai/3.jpg', // 上海市风景图3
+                    '/rjxmfls_trip_map/assets/images/shanghai/4.jpg', // 上海市风景图4
+                    '/rjxmfls_trip_map/assets/images/shanghai/5.jpg', // 上海市风景图5
+                    '/rjxmfls_trip_map/assets/images/shanghai/6.jpg', // 上海市风景图6
+                    '/rjxmfls_trip_map/assets/images/shanghai/7.jpg', // 上海市风景图7
+                    '/rjxmfls_trip_map/assets/images/shanghai/8.jpg', // 上海市风景图8
+                    '/rjxmfls_trip_map/assets/images/shanghai/9.jpg'  // 上海市风景图9
+                ],
+                thumb: '/rjxmfls_trip_map/assets/images/shanghai/thumb.jpg' // 上海市缩略图
+            },
+            { 
+                id: 'guangdong', // 省份唯一标识
+                name: '广东省', // 省份名称
+                desc: '广东，位于中国南端，是中国经济最发达的省份之一，也是改革开放的前沿阵地。广东以岭南文化著称。', // 省份描述
+                images: [ // 风景图片数组
+                    '/rjxmfls_trip_map/assets/images/guangdong/1.jpg', // 广东省风景图1
+                    '/rjxmfls_trip_map/assets/images/guangdong/2.jpg', // 广东省风景图2
+                    '/rjxmfls_trip_map/assets/images/guangdong/3.jpg', // 广东省风景图3
+                    '/rjxmfls_trip_map/assets/images/guangdong/4.jpg', // 广东省风景图4
+                    '/rjxmfls_trip_map/assets/images/guangdong/5.jpg', // 广东省风景图5
+                    '/rjxmfls_trip_map/assets/images/guangdong/6.jpg', // 广东省风景图6
+                    '/rjxmfls_trip_map/assets/images/guangdong/7.jpg', // 广东省风景图7
+                    '/rjxmfls_trip_map/assets/images/guangdong/8.jpg', // 广东省风景图8
+                    '/rjxmfls_trip_map/assets/images/guangdong/9.jpg'  // 广东省风景图9
+                ],
+                thumb: '/rjxmfls_trip_map/assets/images/guangdong/thumb.jpg' // 广东省缩略图
+            },
+            { 
+                id: 'sichuan', // 省份唯一标识
+                name: '四川省', // 省份名称
+                desc: '四川，位于中国西南腹地，素有"天府之国"的美誉。这里是大熊猫的故乡，也是川菜的发源地。', // 省份描述
+                images: [ // 风景图片数组
+                    '/rjxmfls_trip_map/assets/images/sichuan/1.jpg', // 四川省风景图1
+                    '/rjxmfls_trip_map/assets/images/sichuan/2.jpg', // 四川省风景图2
+                    '/rjxmfls_trip_map/assets/images/sichuan/3.jpg', // 四川省风景图3
+                    '/rjxmfls_trip_map/assets/images/sichuan/4.jpg', // 四川省风景图4
+                    '/rjxmfls_trip_map/assets/images/sichuan/5.jpg', // 四川省风景图5
+                    '/rjxmfls_trip_map/assets/images/sichuan/6.jpg', // 四川省风景图6
+                    '/rjxmfls_trip_map/assets/images/sichuan/7.jpg', // 四川省风景图7
+                    '/rjxmfls_trip_map/assets/images/sichuan/8.jpg', // 四川省风景图8
+                    '/rjxmfls_trip_map/assets/images/sichuan/9.jpg'  // 四川省风景图9
+                ],
+                thumb: '/rjxmfls_trip_map/assets/images/sichuan/thumb.jpg' // 四川省缩略图
+            },
+            { 
+                id: 'xizang', // 省份唯一标识
+                name: '西藏自治区', // 省份名称
+                desc: '西藏，位于青藏高原，被誉为"世界屋脊"。这里有独特的藏传佛教文化和壮丽的自然风光。', // 省份描述
+                images: [ // 风景图片数组
+                    '/rjxmfls_trip_map/assets/images/xizang/1.jpg', // 西藏风景图1
+                    '/rjxmfls_trip_map/assets/images/xizang/2.jpg', // 西藏风景图2
+                    '/rjxmfls_trip_map/assets/images/xizang/3.jpg', // 西藏风景图3
+                    '/rjxmfls_trip_map/assets/images/xizang/4.jpg', // 西藏风景图4
+                    '/rjxmfls_trip_map/assets/images/xizang/5.jpg', // 西藏风景图5
+                    '/rjxmfls_trip_map/assets/images/xizang/6.jpg', // 西藏风景图6
+                    '/rjxmfls_trip_map/assets/images/xizang/7.jpg', // 西藏风景图7
+                    '/rjxmfls_trip_map/assets/images/xizang/8.jpg', // 西藏风景图8
+                    '/rjxmfls_trip_map/assets/images/xizang/9.jpg'  // 西藏风景图9
+                ],
+                thumb: '/rjxmfls_trip_map/assets/images/xizang/thumb.jpg' // 西藏自治区缩略图
+            }
+        ];
+        
+        // 初始化省份选择器
+        function initProvinceSelector() {
+            // 获取省份选择器容器
+            const selector = document.getElementById('provinceSelector');
+            
+            // 遍历所有省份数据
+            provinces.forEach((province, index) => {
+                // 创建省份按钮元素
+                const button = document.createElement('div');
+                // 添加基础样式类
+                button.classList.add('province-btn');
+                
+                // 如果是第一个省份，设置为激活状态
+                if (index === 0) {
+                    button.classList.add('active');
+                }
+                
+                // 设置按钮内容（省份缩略图）
+                button.innerHTML = `
+                    <img src="${province.thumb}" alt="${province.name}" class="province-img">
+                `;
+                
+                // 设置自定义数据属性（存储省份ID）
+                button.dataset.id = province.id;
+                
+                // 添加点击事件监听器
+                button.addEventListener('click', () => {
+                    // 移除所有按钮的active类
+                    document.querySelectorAll('.province-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    // 给当前点击的按钮添加active类
+                    button.classList.add('active');
+                    // 更新省份信息
+                    updateProvinceInfo(province);
+                    // 滚动到中间位置
+                    scrollToCenter(button);
+                });
+                
+                // 将按钮添加到选择器容器
+                selector.appendChild(button);
+            });
+        }
+        
+        // 生成风景图片网格
+        function generateSceneryGrid(images) {
+            // 获取网格容器
+            const grid = document.getElementById('sceneryGrid');
+            // 清空现有内容
+            grid.innerHTML = '';
+            
+            // 遍历所有图片URL
+            images.forEach((img, index) => {
+                // 创建图片项元素
+                const item = document.createElement('div');
+                // 添加基础样式类
+                item.classList.add('scenery-item');
+                
+                // 设置图片项内容
+                item.innerHTML = `
+                    <img src="${img}" alt="风景图片 ${index + 1}" class="scenery-img">
+                    <div class="scenery-caption">风景 ${index + 1}</div>
+                `;
+                
+                // 将图片项添加到网格容器
+                grid.appendChild(item);
+            });
+        }
+        
+        // 将元素滚动到容器中间
+        function scrollToCenter(element) {
+            // 获取父容器（省份选择器）
+            const container = element.parentElement;
+            // 获取容器宽度
+            const containerWidth = container.offsetWidth;
+            // 获取元素左侧位置
+            const elementLeft = element.offsetLeft;
+            // 获取元素宽度
+            const elementWidth = element.offsetWidth;
+            
+            // 计算滚动位置并执行滚动
+            container.scrollTo({
+                left: elementLeft - (containerWidth / 2) + (elementWidth / 2),
+                behavior: 'smooth' // 平滑滚动
+            });
+        }
+        
+        // 更新省份信息
+        function updateProvinceInfo(province) {
+            // 更新省份名称
+            document.getElementById('provinceName').textContent = province.name;
+            // 更新省份描述
+            document.getElementById('provinceDesc').textContent = province.desc;
+            // 生成风景图片网格
+            generateSceneryGrid(province.images);
+            
+            // 添加动画效果（重置动画）
+            const nameElement = document.getElementById('provinceName');
+            nameElement.style.animation = 'none';
+            
+            // 设置一个微小延迟后重新应用动画
+            setTimeout(() => {
+                nameElement.style.animation = 'none';
+            }, 10);
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            // 初始化省份选择器
+            initProvinceSelector();
+            // 设置初始省份信息（第一个省份）
+            updateProvinceInfo(provinces[0]);
+        });
+    </script>
+</body>
+</html>
